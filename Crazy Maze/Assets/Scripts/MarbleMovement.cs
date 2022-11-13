@@ -6,8 +6,11 @@ public class MarbleMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
 
+    private bool InAreaStart = true;
+    private bool InAreaGoal = false;
+
     [SerializeField]
-    private float speed = 2.0f;
+    private float speed = 7.5f;
 
     void Start()
     {
@@ -22,5 +25,28 @@ public class MarbleMovement : MonoBehaviour
         rb.AddForce(tilt);
 
         Debug.DrawRay(transform.position + Vector3.up, tilt, Color.green);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "AreaStart")
+        {
+            InAreaStart = true;
+            InAreaGoal = false;
+
+            Debug.Log("Start");
+        }
+        else if (collision.gameObject.tag == "AreaGoal")
+        {
+            InAreaGoal = true;
+            InAreaStart = false;
+
+            Debug.Log("Goal");
+        }
+        else
+        {
+            InAreaStart = false;
+            InAreaGoal = false;
+        }
     }
 }
