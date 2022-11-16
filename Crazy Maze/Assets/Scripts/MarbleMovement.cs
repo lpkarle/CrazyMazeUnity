@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MarbleMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    private bool InAreaStart = true;
-    private bool InAreaGoal = false;
+    private bool inAreaStart = true;
+    private bool inAreaGoal = false;
 
     [SerializeField]
     private float speed = 7.5f;
@@ -31,22 +30,34 @@ public class MarbleMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "AreaStart")
         {
-            InAreaStart = true;
-            InAreaGoal = false;
-
             Debug.Log("Start");
+
+            inAreaStart = true;
+            inAreaGoal = false;
         }
         else if (collision.gameObject.tag == "AreaGoal")
         {
-            InAreaGoal = true;
-            InAreaStart = false;
 
-            Debug.Log("Goal");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            inAreaGoal = true;
+            inAreaStart = false;
+
         }
         else
         {
-            InAreaStart = false;
-            InAreaGoal = false;
+            inAreaStart = false;
+            inAreaGoal = false;
         }
+    }
+
+    public bool getInAreaStart()
+    {
+        return inAreaStart;
+    }
+
+    public bool getInAreaGoal()
+    {
+        return inAreaGoal;
     }
 }
