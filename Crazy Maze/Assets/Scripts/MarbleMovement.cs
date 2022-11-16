@@ -10,7 +10,7 @@ public class MarbleMovement : MonoBehaviour
 
     [SerializeField]
     private float speed = 7.5f;
-
+     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
